@@ -6,21 +6,22 @@
 
 using namespace std;
 
-// ---------- State Representation ----------
+
 class State {
 public:
-    double x; // Represents solution value (e.g., position)
+    double x; 
 
     State(double val = 0) : x(val) {}
 
     double getValue() const {
-        // Objective function: minimize f(x) = x^2
-        return -1.0 * (x * x); // Use negative so higher is better
+        // Objective function(minimize)
+        return -1.0 * (x * x); 
     }
 
-    // Randomly generate a nearby successor
+
+
     State getRandomSuccessor() const {
-        double delta = ((rand() % 2001) - 1000) / 1000.0; // Range: -1.0 to +1.0
+        double delta = ((rand() % 2001) - 1000) / 1000.0; 
         return State(x + delta);
     }
 
@@ -29,13 +30,14 @@ public:
     }
 };
 
-// ---------- Schedule (Temperature Function) ----------
+
 double schedule(int t) {
     if (t == 0) return 1.0;
-    return 1000.0 / (t); // Cooling schedule: T decreases over time
+    return 1000.0 / (t); 
 }
 
-// ---------- Simulated Annealing ----------
+
+
 State simulatedAnnealing(State initialState) {
     State current = initialState;
     int t = 1;
@@ -61,22 +63,23 @@ State simulatedAnnealing(State initialState) {
 
         t++;
 
-        // Optional: Print progress
         if (t % 1000 == 0) {
             cout << "Step " << t << " -> ";
             current.print();
         }
 
-        // Safety stop after enough iterations
+       
+
+        
         if (t > 10000) break;
     }
 
     return current;
 }
 
-// ---------- Main Test ----------
+
 int main() {
-    srand(time(0)); // Seed randomness
+    srand(time(0)); 
 
     cout << "Simulated Annealing for minimizing f(x) = x^2\n";
 
